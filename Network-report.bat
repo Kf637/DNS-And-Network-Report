@@ -1,7 +1,7 @@
 @echo off
 setlocal EnableExtensions EnableDelayedExpansion
 
-rem Optional: use UTF-8 code page to reduce garbled characters in redirected output
+rem Use UTF-8 code page to reduce garbled characters in redirected output
 chcp 65001 >nul
 
 rem Timestamp: prefer WMIC if available, else build ISO-like from DATE/TIME
@@ -89,3 +89,4 @@ ipconfig /all >> "%OUT_FILE%"
 echo Done. Report saved to: "%OUT_FILE%"
 
 endlocal
+
