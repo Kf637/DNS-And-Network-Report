@@ -1,4 +1,26 @@
-# DNS-And-Network-Report
+# DNS And Network Report
+
+A simple Windows batch script that exports all network adapters and their DNS server configuration to a timestamped text file. It also appends a full `ipconfig /all` for raw reference.
+
+- Script: `Network-report.bat`
+- Output: `network_adapters_dns_YYYYMMDD_HHMMSS.txt` saved in the same folder as the script
+
+## Requirements
+- Windows 10/11 or Windows Server 2016+ (PowerShell 5.1+ is built-in)
+- No admin rights required (read-only commands)
+- Uses built-in PowerShell cmdlets:
+  - `Get-NetAdapter`
+  - `Get-DnsClientServerAddress`
+  - Falls back to raw `ipconfig /all` for completeness
+
+## What it collects
+- System header (Computer name, User, OS, Timestamp)
+- Adapter summary: Name, Description, Status, MAC, Link Speed
+- DNS server addresses per interface (IPv4 and IPv6)
+- Full `ipconfig /all` output
+
+## How to run
+Execute the batch file: `Network-report.bat`. It will create a timestamped report in the same folder and print the path when done.
 
 ## Example Output
 
@@ -96,3 +118,8 @@ Ethernet adapter Bluetooth Network Connection:
    DHCP Enabled. . . . . . . . . . . : Yes
    Autoconfiguration Enabled . . . . : Yes
 ```
+
+## Troubleshooting
+- If you see empty IPv4/IPv6 DNS lines for an adapter, that interface likely has no DNS configured for that family, or it’s disconnected.
+- If `Get-NetAdapter`/`Get-DnsClientServerAddress` aren’t found, ensure you’re on Windows 10/11 (or Server 2016+) where the NetTCPIP module is available by default.
+
